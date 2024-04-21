@@ -1,6 +1,6 @@
 #pragma once
-
 #include <string>
+#include <vector> 
 
 namespace Records {
 	const int kDefaultStartingSalary = 30000;
@@ -40,9 +40,10 @@ namespace Records {
 
 	private:
 		std::string mFirstName;
-		std::string mMiddleName; // New field
+		std::string mMiddleName; 
 		std::string mLastName;
-		std::string mAddress;    // New field
+		std::string mAddress;    
+		std::vector<Employee> mEmployees;
 		int mEmployeeNumber = -1;
 		int mSalary = kDefaultStartingSalary;
 		bool mHired = false;

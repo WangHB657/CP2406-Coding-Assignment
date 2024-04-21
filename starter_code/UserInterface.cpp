@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include <exception>
 #include "Database.h"
+#include <fstream>
 
 using namespace std;
 using namespace Records;
@@ -11,6 +12,8 @@ void doHire(Database& db);
 void doFire(Database& db);
 void doPromote(Database& db);
 void doDemote(Database& db);
+void doSave(Database& db);
+
 
 int main()
 {
@@ -41,6 +44,10 @@ int main()
 		case 6:
 			employeeDB.displayFormer();
 			break;
+        case 7:
+            doSave(employeeDB);
+            break;
+
 		default:
 			cerr << "Unknown command." << endl;
 			break;
@@ -69,6 +76,7 @@ int displayMenu()
     cout << "4) List all employees" << endl;
     cout << "5) List all current employees" << endl;
     cout << "6) List all former employees" << endl;
+    cout << "7) Save database to file" << endl;
     cout << "0) Quit" << endl;
     cout << endl;
     cout << "---> ";
@@ -127,5 +135,31 @@ void doPromote(Database& db)
         emp.promote(raiseAmount);
     } catch (const std::logic_error& exception) {
         cerr << "Unable to promote employee: " << exception.what() << endl;
+    }
+}
+
+void doSave(Database& db) {
+    string filename;
+    cout << "Enter filename to save the database: ";
+    cin >> filename;
+
+    // Check if the file exists
+    ifstream fileCheck(filename);
+    if (fileCheck) {
+        char choice;
+        cout << "File already exists. Overwrite? (y/n): ";
+        cin >> choice;
+        if (tolower(choice) != 'y') {
+            cout << "Operation cancelled.\n";
+            return;
+        }
+    }
+    fileCheck.close();
+
+    try {
+        db.saveToFile(filename);
+        cout << "Database saved to '" << filename << "' successfully.\n";
+    } catch (const std::exception& e) {
+        cerr << "Failed to save the database: " << e.what() << endl;
     }
 }

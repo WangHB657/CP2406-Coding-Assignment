@@ -1,6 +1,7 @@
 #include <iostream>
 #include <stdexcept>
 #include "Database.h"
+#include <fstream>
 
 using namespace std;
 
@@ -59,5 +60,23 @@ namespace Records {
 				employee.display();
 		}
 	}
+
+	void Database::saveToFile(const string& filename) const {
+    ofstream outFile(filename, ios::out); 
+    if (!outFile) {
+        throw runtime_error("Failed to open file for writing.");
+    }
+    for (const auto& employee : mEmployees) {
+        outFile << employee.getFirstName() << " "
+                << employee.getMiddleName() << " "
+                << employee.getLastName() << " "
+                << employee.getEmployeeNumber() << " "
+                << employee.getAddress() << " "
+                << employee.getSalary() << " "
+                << (employee.isHired() ? "Hired" : "Fired") << endl;
+    }
+    outFile.close();
+}
+
 
 }
