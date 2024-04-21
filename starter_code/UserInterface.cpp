@@ -80,15 +80,20 @@ int displayMenu()
 
 void doHire(Database& db)
 {
-    string firstName;
-    string lastName;
+    string firstName, middleName, lastName, address;
 
     cout << "First name? ";
     cin >> firstName;
+    cout << "Middle name? ";
+    cin >> middleName;
     cout << "Last name? ";
     cin >> lastName;
-    
-    db.addEmployee(firstName, lastName);
+    cout << "Address? ";
+    cin.ignore();  // Ignore the newline left in the input buffer
+    getline(cin, address);  // Use getline to handle spaces in the address
+
+    db.addEmployee(firstName, middleName, lastName, address);
+    cout << "Employee hired successfully!" << endl;
 }
 
 void doFire(Database& db)

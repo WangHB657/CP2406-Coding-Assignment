@@ -6,15 +6,14 @@ using namespace std;
 
 namespace Records {
 
-	Employee& Database::addEmployee(const string& firstName,
-		const string& lastName)
+	Employee& Database::addEmployee(const string& firstName,  const string& middleName, const string& lastName, const string& address)
 	{
-		Employee theEmployee(firstName, lastName);
+		Employee theEmployee(firstName, middleName, lastName, address);
 		theEmployee.setEmployeeNumber(mNextEmployeeNumber++);
 		theEmployee.hire();
 		mEmployees.push_back(theEmployee);
 
-		return mEmployees[mEmployees.size() - 1];
+		return mEmployees.back();
 	}
 
 	Employee& Database::getEmployee(int employeeNumber)

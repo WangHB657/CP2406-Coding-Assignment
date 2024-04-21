@@ -26,9 +26,6 @@ namespace Records {
 
 		void setLastName(const std::string& lastName);
 		const std::string& getLastName() const;
-		// New
-		void setMiddleName(const std::string& middleName);
-        const std::string& getMiddleName() const;
 
 		void setEmployeeNumber(int employeeNumber);
 		int getEmployeeNumber() const;
