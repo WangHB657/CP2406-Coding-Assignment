@@ -77,7 +77,7 @@ namespace Records {
 	{
 		return mLastName;
 	}
-// New
+
 	void Employee::setAddress(const std::string& address) {
     	mAddress = address;
 	}
@@ -109,6 +109,14 @@ namespace Records {
 	bool Employee::isHired() const
 	{
 		return mHired;
+	}
+
+	void Employee::setAddress(const std::string& newAddress) {
+    mAddress = newAddress;
+	}
+
+	void Employee::setSalary(int newSalary) {
+    mSalary = newSalary;
 	}
 
 }

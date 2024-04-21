@@ -17,6 +17,10 @@ namespace Records {
 		void fire(); // Dismisses the employee
 		void display() const;// Outputs employee info to console
 		void setHired(bool isHired);
+		void setAddress(const std::string& newAddress);
+    	void setSalary(int newSalary);
+    	void hire();   // To set hired as true
+    	void fire();   // To set hired as false
 
 		// Getters and setters
 		void setFirstName(const std::string& firstName);

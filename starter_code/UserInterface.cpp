@@ -50,6 +50,9 @@ int main()
         case 8:
             doLoad(employeeDB);
             break;
+        case 9:
+            doEdit(employeeDB);
+            break;
 
 		default:
 			cerr << "Unknown command." << endl;
@@ -81,6 +84,7 @@ int displayMenu()
     cout << "6) List all former employees" << endl;
     cout << "7) Save database to file" << endl;
     cout << "8) Load database from file" << endl;
+    cout << "9) Edit employee" << endl;
     cout << "0) Quit" << endl;
     cout << endl;
     cout << "---> ";
@@ -178,5 +182,47 @@ void doLoad(Database& db) {
         cout << "Database loaded from '" << filename << "' successfully.\n";
     } catch (const std::exception& e) {
         cerr << "Failed to load the database: " << e.what() << endl;
+    }
+}
+
+void doEdit(Database& db) {
+    int employeeNumber;
+    cout << "Enter employee number: ";
+    cin >> employeeNumber;
+
+    try {
+        Employee& emp = db.getEmployee(employeeNumber);
+        cout << "Editing Employee: " << employeeNumber << endl;
+        emp.display();
+
+        string newAddress;
+        int newSalary;
+        char hiredStatus;
+
+        cout << "New Address (blank to skip): ";
+        cin.ignore();  // To consume any leftover newline characters
+        getline(cin, newAddress);
+        if (!newAddress.empty()) {
+            emp.setAddress(newAddress);
+        }
+
+        cout << "New Salary (0 to skip): ";
+        cin >> newSalary;
+        if (newSalary > 0) {
+            emp.setSalary(newSalary);
+        }
+
+        cout << "Is the employee hired or fired? (h/f, blank to skip): ";
+        cin >> hiredStatus;
+        if (hiredStatus == 'h' || hiredStatus == 'H') {
+            emp.hire();
+        } else if (hiredStatus == 'f' || hiredStatus == 'F') {
+            emp.fire();
+        }
+
+        cout << "Employee updated successfully.\n";
+        emp.display();  // Display the updated details
+    } catch (const std::logic_error& ex) {
+        cerr << "Failed to find employee: " << ex.what() << endl;
     }
 }
