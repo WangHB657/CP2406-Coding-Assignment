@@ -16,6 +16,7 @@ namespace Records {
 		void hire(); // Hires or rehires the employee
 		void fire(); // Dismisses the employee
 		void display() const;// Outputs employee info to console
+		void setHired(bool isHired);
 
 		// Getters and setters
 		void setFirstName(const std::string& firstName);

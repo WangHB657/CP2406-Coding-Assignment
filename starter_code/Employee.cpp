@@ -44,6 +44,11 @@ namespace Records {
 		cout << endl;
 	}
 
+	void Employee::setHired(bool isHired) {
+    mHired = isHired;
+	}
+
+
 	// Getters and setters
 	void Employee::setFirstName(const string& firstName)
 	{
@@ -55,7 +60,6 @@ namespace Records {
 		return mFirstName;
 	}
 
-	// new
 	void Employee::setMiddleName(const std::string& middleName) {
     mMiddleName = middleName;
 }

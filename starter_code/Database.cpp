@@ -78,5 +78,29 @@ namespace Records {
     outFile.close();
 }
 
+	void Database::loadFromFile(const std::string& filename) {
+    std::ifstream inFile(filename);
+    if (!inFile) {
+        throw std::runtime_error("Could not open file for reading.");
+    }
+
+    mEmployees.clear(); // Clear current database before loading
+
+    std::string firstName, middleName, lastName, address;
+    int employeeNumber, salary;
+    bool hiredStatus;
+    std::string status;
+
+    while (inFile >> firstName >> middleName >> lastName >> employeeNumber >> address >> salary >> status) {
+        Employee emp(firstName, middleName, lastName, address);
+        emp.setEmployeeNumber(employeeNumber);
+        emp.setSalary(salary);
+        emp.setHired(status == "Hired" ? true : false);
+        mEmployees.push_back(emp);
+    }
+
+    inFile.close();
+}
+
 
 }

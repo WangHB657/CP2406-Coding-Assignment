@@ -13,7 +13,7 @@ void doFire(Database& db);
 void doPromote(Database& db);
 void doDemote(Database& db);
 void doSave(Database& db);
-
+void doLoad(Database& db);
 
 int main()
 {
@@ -47,6 +47,9 @@ int main()
         case 7:
             doSave(employeeDB);
             break;
+        case 8:
+            doLoad(employeeDB);
+            break;
 
 		default:
 			cerr << "Unknown command." << endl;
@@ -77,6 +80,7 @@ int displayMenu()
     cout << "5) List all current employees" << endl;
     cout << "6) List all former employees" << endl;
     cout << "7) Save database to file" << endl;
+    cout << "8) Load database from file" << endl;
     cout << "0) Quit" << endl;
     cout << endl;
     cout << "---> ";
@@ -161,5 +165,18 @@ void doSave(Database& db) {
         cout << "Database saved to '" << filename << "' successfully.\n";
     } catch (const std::exception& e) {
         cerr << "Failed to save the database: " << e.what() << endl;
+    }
+}
+
+void doLoad(Database& db) {
+    string filename;
+    cout << "Enter filename to load the database from: ";
+    cin >> filename;
+
+    try {
+        db.loadFromFile(filename);
+        cout << "Database loaded from '" << filename << "' successfully.\n";
+    } catch (const std::exception& e) {
+        cerr << "Failed to load the database: " << e.what() << endl;
     }
 }
