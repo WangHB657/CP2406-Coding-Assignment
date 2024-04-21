@@ -5,9 +5,11 @@ using namespace std;
 
 namespace Records {
 
-	Employee::Employee(const std::string& firstName, const std::string& lastName)
+	Employee::Employee(const std::string& firstName, const std::string& middleName, const std::string& lastName, const std::string& address)
 		: mFirstName(firstName)
+		, mMiddleName(middleName)
 		, mLastName(lastName)
+		, mAddress(address)
 	{
 	}
 
@@ -33,10 +35,11 @@ namespace Records {
 
 	void Employee::display() const
 	{
-		cout << "Employee: " << getLastName() << ", " << getFirstName() << endl;
+		cout << "Employee: " << getLastName() << ", " << getFirstName() << " " << getMiddleName() << endl;
 		cout << "-------------------------" << endl;
 		cout << (isHired() ? "Current Employee" : "Former Employee") << endl;
 		cout << "Employee Number: " << getEmployeeNumber() << endl;
+		cout << "Address: " << getAddress() << endl;// New
 		cout << "Salary: $" << getSalary() << endl;
 		cout << endl;
 	}
@@ -46,11 +49,20 @@ namespace Records {
 	{
 		mFirstName = firstName;
 	}
-
+	
 	const string& Employee::getFirstName() const
 	{
 		return mFirstName;
 	}
+
+	// new
+	void Employee::setMiddleName(const std::string& middleName) {
+    mMiddleName = middleName;
+}
+
+	const std::string& Employee::getMiddleName() const {
+    return mMiddleName;
+}
 
 	void Employee::setLastName(const string& lastName)
 	{
@@ -60,6 +72,14 @@ namespace Records {
 	const string& Employee::getLastName() const
 	{
 		return mLastName;
+	}
+// New
+	void Employee::setAddress(const std::string& address) {
+    	mAddress = address;
+	}
+
+	const std::string& Employee::getAddress() const {
+    	return mAddress;
 	}
 
 	void Employee::setEmployeeNumber(int employeeNumber)
