@@ -8,7 +8,10 @@
 using namespace std;
 using namespace Records;
 
-int displayMenu();
+enum Role { MANAGER, EMPLOYEE };
+
+int displayMenu(Role role);
+
 void doHire(Database& db);
 void doFire(Database& db);
 void doPromote(Database& db);
@@ -22,10 +25,21 @@ void doSearch(Database& db);
 int main()
 {
 	Database employeeDB;
+    Role userRole;
+
+    string roleChoice;
+    cout << "Are you a Manager or an Employee? (M/E): ";
+    cin >> roleChoice;
+
+    if (roleChoice == "M" || roleChoice == "m") {
+        userRole = MANAGER;
+    } else {
+        userRole = EMPLOYEE;
+    }
 
 	bool done = false;
 	while (!done) {
-		int selection = displayMenu();
+		int selection = displayMenu(userRole);
 		switch (selection) {
 		case 0:
 			done = true;
@@ -70,7 +84,7 @@ int main()
 	return 0;
 }
 
-int displayMenu()
+int displayMenu(Role role)
 {
 	// Note:
 	//		One important note is that this code assumes that the user will
@@ -83,6 +97,7 @@ int displayMenu()
     cout << endl;
     cout << "Employee Database" << endl;
     cout << "-----------------" << endl;
+    if (role == MANAGER) {
     cout << "1) Hire a new employee" << endl;
     cout << "2) Fire an employee" << endl;
     cout << "3) Promote an employee" << endl;
@@ -93,6 +108,7 @@ int displayMenu()
     cout << "8) Load database from file" << endl;
     cout << "9) Edit employee" << endl;
     cout << "10) Search employee" << endl;
+    }  
     cout << "0) Quit" << endl;
     cout << endl;
     cout << "---> ";
