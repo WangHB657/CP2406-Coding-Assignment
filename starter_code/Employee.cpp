@@ -78,9 +78,9 @@ namespace Records {
 		return mLastName;
 	}
 
-	void Employee::setAddress(const std::string& address) {
-    	mAddress = address;
-	}
+	// void Employee::setAddress(const std::string& address) {
+    // 	mAddress = address;
+	// }
 
 	const std::string& Employee::getAddress() const {
     	return mAddress;
@@ -96,10 +96,10 @@ namespace Records {
 		return mEmployeeNumber;
 	}
 
-	void Employee::setSalary(int salary)
-	{
-		mSalary = salary;
-	}
+	// void Employee::setSalary(int salary)
+	// {
+	// 	mSalary = salary;
+	// }
 
 	int Employee::getSalary() const
 	{

@@ -23,7 +23,8 @@ namespace Records {
 		void displayFormer() const;
 		void saveToFile(const std::string& filename) const;
 		void loadFromFile(const std::string& filename);
-
+		std::vector<Employee> searchEmployees(const std::string& field, const std::string& searchTerm);
+		
 	private:
 		std::vector<Employee> mEmployees;
 		int mNextEmployeeNumber = kFirstEmployeeNumber;

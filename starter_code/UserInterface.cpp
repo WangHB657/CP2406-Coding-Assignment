@@ -3,6 +3,7 @@
 #include <exception>
 #include "Database.h"
 #include <fstream>
+#include <limits>
 
 using namespace std;
 using namespace Records;
@@ -14,6 +15,9 @@ void doPromote(Database& db);
 void doDemote(Database& db);
 void doSave(Database& db);
 void doLoad(Database& db);
+void doEdit(Database& db);
+void doSearch(Database& db);
+
 
 int main()
 {
@@ -53,6 +57,9 @@ int main()
         case 9:
             doEdit(employeeDB);
             break;
+        case 10:
+            doSearch(employeeDB);
+            break;
 
 		default:
 			cerr << "Unknown command." << endl;
@@ -85,6 +92,7 @@ int displayMenu()
     cout << "7) Save database to file" << endl;
     cout << "8) Load database from file" << endl;
     cout << "9) Edit employee" << endl;
+    cout << "10) Search employee" << endl;
     cout << "0) Quit" << endl;
     cout << endl;
     cout << "---> ";
@@ -226,3 +234,22 @@ void doEdit(Database& db) {
         cerr << "Failed to find employee: " << ex.what() << endl;
     }
 }
+
+void doSearch(Database& db) {
+    string field, searchTerm;
+    cout << "Enter field to search by (first name, middle name, last name, address): ";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Ignore leftover newline
+    getline(cin, field);
+    cout << "Enter search term: ";
+    getline(cin, searchTerm);
+
+    vector<Employee> found = db.searchEmployees(field, searchTerm);
+    if (found.empty()) {
+        cout << "No results found." << endl;
+    } else {
+        for (const auto& emp : found) {
+            emp.display();
+        }
+    }
+}
+

@@ -2,6 +2,7 @@
 #include <stdexcept>
 #include "Database.h"
 #include <fstream>
+#include <algorithm>
 
 using namespace std;
 
@@ -102,5 +103,30 @@ namespace Records {
     inFile.close();
 }
 
+	std::vector<Employee> Database::searchEmployees(const std::string& field, const std::string& searchTerm) {
+    std::vector<Employee> results;
+    std::string lowerSearchTerm = searchTerm;
+    std::transform(lowerSearchTerm.begin(), lowerSearchTerm.end(), lowerSearchTerm.begin(), ::tolower);  // Convert search term to lowercase
+
+    for (auto& employee : mEmployees) {
+        std::string valueToCheck;
+        if (field == "first name") {
+            valueToCheck = employee.getFirstName();
+        } else if (field == "middle name") {
+            valueToCheck = employee.getMiddleName();
+        } else if (field == "last name") {
+            valueToCheck = employee.getLastName();
+        } else if (field == "address") {
+            valueToCheck = employee.getAddress();
+        }
+        std::transform(valueToCheck.begin(), valueToCheck.end(), valueToCheck.begin(), ::tolower); // Convert to lowercase for case insensitive comparison
+
+        if (valueToCheck.find(lowerSearchTerm) != std::string::npos) {
+            results.push_back(employee);
+        }
+    }
+
+    return results;
+}
 
 }
